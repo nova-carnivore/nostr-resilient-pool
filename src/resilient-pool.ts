@@ -7,7 +7,7 @@ import {
 import { verifyEvent } from 'nostr-tools/pure'
 import { normalizeURL } from 'nostr-tools/utils'
 import type { AbstractRelay, Subscription } from 'nostr-tools/abstract-relay'
-import type { Filter, Event } from 'nostr-tools'
+import type { Filter, Event, EventTemplate, VerifiedEvent } from 'nostr-tools'
 
 export interface ResilientPoolOptions
   extends Omit<AbstractPoolConstructorOptions, 'verifyEvent' | 'websocketImplementation' | 'maxWaitForConnection'> {
@@ -227,7 +227,7 @@ export class ResilientPool extends AbstractSimplePool {
     relays: string[],
     event: Event,
     params?: {
-      onauth?: (evt: any) => Promise<any>
+      onauth?: (evt: EventTemplate) => Promise<VerifiedEvent>
       maxWait?: number
       abort?: AbortSignal
     }
@@ -285,7 +285,7 @@ export class ResilientPool extends AbstractSimplePool {
     relays: string[],
     event: Event,
     params?: {
-      onauth?: (evt: any) => Promise<any>
+      onauth?: (evt: EventTemplate) => Promise<VerifiedEvent>
       maxWait?: number
       abort?: AbortSignal
     }
